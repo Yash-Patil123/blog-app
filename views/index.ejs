@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Blog App</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+<h1>My Blog</h1>
+
+<div class="top-bar">
+
+    <form method="GET" action="/blogs" class="search-box">
+        <input name="search" placeholder="Search..." value="<%= search %>">
+        <button>Search</button>
+    </form>
+
+    <a href="/blogs/new" class="create-btn">+ Create Blog</a>
+
+</div>
+
+<div class="container">
+
+<% blogs.forEach(blog => { %>
+
+<div class="blog">
+
+    <h2><%= blog.title %></h2>
+    <p><%= blog.content %></p>
+
+    <small class="author">
+        By <%= blog.author %> | <%= blog.created_at.toDateString() %>
+    </small>
+
+    <p>❤️ <%= blog.likes %></p>
+
+    <form method="POST" action="/blogs/<%= blog._id %>/like">
+        <button>Like</button>
+    </form>
+
+    <form method="GET" action="/blogs/<%= blog._id %>/edit">
+        <button>Edit</button>
+    </form>
+
+    <form method="POST" action="/blogs/<%= blog._id %>?_method=DELETE">
+        <button>Delete</button>
+    </form>
+
+    <h4>Comments</h4>
+
+    <% comments.forEach(c => { %>
+        <% if (c.blogId.toString() === blog._id.toString()) { %>
+            <p class="comment"><%= c.text %></p>
+        <% } %>
+    <% }) %>
+
+    <form method="POST" action="/blogs/<%= blog._id %>/comment">
+        <input name="text" placeholder="Add comment..." required>
+        <button>Add</button>
+    </form>
+
+</div>
+
+<% }) %>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Blog</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+<h2>Edit Blog</h2>
+
+<div class="form-container">
+
+<form method="POST" action="/blogs/<%= blog._id %>?_method=PUT">
+
+<label>Title</label>
+<input name="title" value="<%= blog.title %>" required>
+
+<label>Content</label>
+<textarea name="content" required><%= blog.content %></textarea>
+
+<label>Author</label>
+<input name="author" value="<%= blog.author %>">
+
+<button>Update Blog</button>
+
+</form>
+
+</div>
+
+</body>
+</html>
